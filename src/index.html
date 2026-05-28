@@ -211,25 +211,53 @@
 
 <div class="container">
       
-       <div id="step0" class="step-panel active">
-           <h3 style="text-align: center; margin-bottom: 10px;">Escolham a Categoria</h3>
-           <p style="text-align: center; color: #aaa; font-size: 0.95rem;">Vocês vão ordenar os mesmos filmes baseados no gênero escolhido.</p>
-           <div class="category-grid">
-               <button class="btn-category" onclick="selectCategory('acao')"> Ação</button>
-               <button class="btn-category" onclick="selectCategory('animacao')"> Animação</button>
-               <button class="btn-category" onclick="selectCategory('fantasia')"> Fantasia</button>
-               <button class="btn-category" onclick="selectCategory('ficcao')"> Ficção Científica</button>
-               <button class="btn-category" onclick="selectCategory('romance')"> Romance</button>
-               <button class="btn-category" onclick="selectCategory('terror')"> Suspense</button>
-           </div>
+    <div id="step0" class="step-panel active">
+       <h3 style="text-align: center; margin-bottom: 10px;">Escolham a Categoria</h3>
+       <p style="text-align: center; color: #aaa; font-size: 0.95rem;">Vocês vão ordenar os mesmos filmes baseados no gênero escolhido.</p>
+       <div class="category-grid">
+           <button class="btn-category" onclick="selectCategory('acao')"> Ação</button>
+           <button class="btn-category" onclick="selectCategory('animacao')"> Animação</button>
+           <button class="btn-category" onclick="selectCategory('fantasia')"> Fantasia</button>
+           <button class="btn-category" onclick="selectCategory('ficcao')"> Ficção Científica</button>
+           <button class="btn-category" onclick="selectCategory('romance')"> Romance</button>
+           <button class="btn-category" onclick="selectCategory('terror')"> Suspense</button>
        </div>
+   </div>
+      
+   <div id="step1" class="step-panel">
+       <div class="input-group">
+           <label for="name1">Nome do Jogador 1:</label>
+           <input type="text" id="name1" placeholder="Ex: Anakin" value="Jogador 1">
+       </div>
+       <p>Defina sua ordem de preferência de <strong>1 (favorito)</strong> a <strong>7 (menos gosta)</strong>:</p>
+       <div class="movie-list" id="list1"></div>
+       <button class="btn-submit" onclick="submitPlayer1()">Próximo Jogador</button>
+    </div>
 
+    <div id="step2" class="step-panel">
+       <div class="input-group">
+           <label for="name2">Nome do Jogador 2:</label>
+           <input type="text" id="name2" placeholder="Ex: Padmé" value="Jogador 2">
+        </div>
+        <p>Sua vez! Defina sua ordem de preferência de <strong>1 (favorito)</strong> a <strong>7 (menos gosta)</strong>:</p>
+        <div class="movie-list" id="list2"></div>
+        <button class="btn-submit" onclick="submitPlayer2()">Calcular Afinidade </button>
+    </div>
 
-<div class="container">
-    <div id="step0"></div>
-    <div id="step1" style="display:none;"></div>
-    <div id="step2" style="display:none;"></div>
-    <div id="step3" style="display:none;"></div>
+    <div id="step3" class="step-panel result-screen">
+       <h2>Resultado da Afinidade</h2>
+       <div id="category-badge" style="color: var(--primary); font-weight: bold; margin-bottom: 5px; text-transform: uppercase;"></div>
+       <div id="names-headline" style="font-size: 1.2rem;"></div>
+       <div class="match-score" id="score-display">0%</div>
+       <div class="verdict" id="verdict-display">Carregando veredito...</div>
+          
+       <div class="details">
+           Foram detectadas <strong id="inv-count">0</strong> inversões de posições no ranking.<br>
+       </div>
+       <br>
+       <button class="btn-submit" onclick="restartGame()" style="background: #4a4a55;">Reiniciar </button>
+   </div>
+
 </div>
 
 </body>
