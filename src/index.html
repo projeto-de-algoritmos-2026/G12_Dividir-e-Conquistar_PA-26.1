@@ -4,6 +4,231 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movies Match</title>
+
+    <style>
+       :root {
+           --primary: #ff4757;
+           --bg: #1e1e24;
+           --card-bg: #2f2f38;
+           --text: #ffffff;
+           --accent: #2ed573;
+           --gold: #ffa500;
+       }
+
+
+       body {
+           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+           background-color: var(--bg);
+           color: var(--text);
+           margin: 0;
+           padding: 20px;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+       }
+
+
+       header {
+           text-align: center;
+           margin-bottom: 20px;
+       }
+
+
+       header h1 {
+           color: var(--primary);
+           font-size: 2.5rem;
+           margin-bottom: 5px;
+       }
+
+
+       .container {
+           max-width: 600px;
+           width: 100%;
+           background: var(--card-bg);
+           padding: 30px;
+           border-radius: 12px;
+           box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+           box-sizing: border-box;
+       }
+
+
+       .step-panel {
+           display: none;
+       }
+
+
+       .step-panel.active {
+           display: block;
+       }
+
+
+       .input-group {
+           margin-bottom: 20px;
+       }
+
+
+       label {
+           display: block;
+           margin-bottom: 8px;
+           font-weight: bold;
+           color: var(--primary);
+           font-size: 1.1rem;
+       }
+
+
+       input[type="text"] {
+           width: 100%;
+           padding: 12px;
+           background: #3a3a45;
+           border: 1px solid #4a4a55;
+           border-radius: 6px;
+           color: white;
+           font-size: 1rem;
+           box-sizing: border-box;
+       }
+
+
+       /* Grid de Categorias */
+       .category-grid {
+           display: grid;
+           grid-template-columns: 1fr 1fr;
+           gap: 15px;
+           margin-top: 20px;
+       }
+
+
+       .btn-category {
+           background: #3a3a45;
+           color: white;
+           border: 2px solid #4a4a55;
+           padding: 20px;
+           font-size: 1.1rem;
+           border-radius: 8px;
+           cursor: pointer;
+           transition: all 0.2s ease;
+           text-align: center;
+       }
+
+
+       .btn-category:hover {
+           border-color: var(--primary);
+           background: rgba(255, 71, 87, 0.1);
+           transform: translateY(-2px);
+       }
+
+
+       /* Lista de Filmes */
+       .movie-list {
+           list-style: none;
+           padding: 0;
+           margin: 20px 0;
+       }
+
+
+       .movie-item {
+           background: #3a3a45;
+           padding: 12px 20px;
+           margin-bottom: 10px;
+           border-radius: 8px;
+           display: flex;
+           align-items: center;
+           justify-content: space-between;
+           border: 1px solid #4a4a55;
+           transition: border-color 0.3s;
+       }
+
+
+       .movie-item:hover {
+           border-color: var(--primary);
+       }
+
+
+       .movie-info {
+           display: flex;
+           align-items: center;
+           gap: 15px;
+       }
+
+
+       .rank-input {
+           width: 55px;
+           padding: 8px;
+           background: #1e1e24;
+           border: 2px solid var(--primary);
+           border-radius: 6px;
+           color: white;
+           font-weight: bold;
+           text-align: center;
+           font-size: 1.1rem;
+       }
+
+
+       .rank-input::-webkit-outer-spin-button,
+       .rank-input::-webkit-inner-spin-button {
+           -webkit-appearance: none;
+           margin: 0;
+       }
+       .rank-input {
+           -moz-appearance: textfield;
+       }
+
+
+       .btn-submit {
+           display: block;
+           width: 100%;
+           background: var(--primary);
+           color: white;
+           border: none;
+           padding: 15px;
+           font-size: 1.1rem;
+           font-weight: bold;
+           border-radius: 8px;
+           cursor: pointer;
+           transition: background 0.2s;
+           margin-top: 20px;
+       }
+
+
+       .btn-submit:hover {
+           background: #ff6b81;
+       }
+
+
+       /* Tela de Resultado Final */
+       .result-screen {
+           text-align: center;
+       }
+
+
+       .match-score {
+           font-size: 4rem;
+           font-weight: bold;
+           color: var(--accent);
+           margin: 20px 0;
+           text-shadow: 0 0 15px rgba(46, 213, 115, 0.4);
+       }
+
+
+       .verdict {
+           font-size: 1.3rem;
+           font-style: italic;
+           margin-bottom: 25px;
+           color: var(--gold);
+       }
+
+
+       .details {
+           background: #3a3a45;
+           padding: 15px;
+           border-radius: 8px;
+           font-size: 0.95rem;
+           color: #d0d0d0;
+           text-align: left;
+           line-height: 1.5;
+       }
+   </style>
+
+
 </head>
 <body>
 
