@@ -15,7 +15,6 @@
            --gold: #ffa500;
        }
 
-
        body {
            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
            background-color: var(--bg);
@@ -27,19 +26,16 @@
            align-items: center;
        }
 
-
        header {
            text-align: center;
            margin-bottom: 20px;
        }
-
 
        header h1 {
            color: var(--primary);
            font-size: 2.5rem;
            margin-bottom: 5px;
        }
-
 
        .container {
            max-width: 600px;
@@ -51,21 +47,17 @@
            box-sizing: border-box;
        }
 
-
        .step-panel {
            display: none;
        }
-
 
        .step-panel.active {
            display: block;
        }
 
-
        .input-group {
            margin-bottom: 20px;
        }
-
 
        label {
            display: block;
@@ -74,7 +66,6 @@
            color: var(--primary);
            font-size: 1.1rem;
        }
-
 
        input[type="text"] {
            width: 100%;
@@ -87,15 +78,12 @@
            box-sizing: border-box;
        }
 
-
-       /* Grid de Categorias */
        .category-grid {
            display: grid;
            grid-template-columns: 1fr 1fr;
            gap: 15px;
            margin-top: 20px;
        }
-
 
        .btn-category {
            background: #3a3a45;
@@ -109,21 +97,17 @@
            text-align: center;
        }
 
-
        .btn-category:hover {
            border-color: var(--primary);
            background: rgba(255, 71, 87, 0.1);
            transform: translateY(-2px);
        }
 
-
-       /* Lista de Filmes */
        .movie-list {
            list-style: none;
            padding: 0;
            margin: 20px 0;
        }
-
 
        .movie-item {
            background: #3a3a45;
@@ -137,18 +121,15 @@
            transition: border-color 0.3s;
        }
 
-
        .movie-item:hover {
            border-color: var(--primary);
        }
-
 
        .movie-info {
            display: flex;
            align-items: center;
            gap: 15px;
        }
-
 
        .rank-input {
            width: 55px;
@@ -162,7 +143,6 @@
            font-size: 1.1rem;
        }
 
-
        .rank-input::-webkit-outer-spin-button,
        .rank-input::-webkit-inner-spin-button {
            -webkit-appearance: none;
@@ -171,7 +151,6 @@
        .rank-input {
            -moz-appearance: textfield;
        }
-
 
        .btn-submit {
            display: block;
@@ -188,17 +167,13 @@
            margin-top: 20px;
        }
 
-
        .btn-submit:hover {
            background: #ff6b81;
        }
 
-
-       /* Tela de Resultado Final */
        .result-screen {
            text-align: center;
        }
-
 
        .match-score {
            font-size: 4rem;
@@ -208,14 +183,12 @@
            text-shadow: 0 0 15px rgba(46, 213, 115, 0.4);
        }
 
-
        .verdict {
            font-size: 1.3rem;
            font-style: italic;
            margin-bottom: 25px;
            color: var(--gold);
        }
-
 
        .details {
            background: #3a3a45;
@@ -235,6 +208,22 @@
 <header>
     <h1>Movies Match</h1>
 </header>
+
+<div class="container">
+      
+       <div id="step0" class="step-panel active">
+           <h3 style="text-align: center; margin-bottom: 10px;">Escolham a Categoria</h3>
+           <p style="text-align: center; color: #aaa; font-size: 0.95rem;">Vocês vão ordenar os mesmos filmes baseados no gênero escolhido.</p>
+           <div class="category-grid">
+               <button class="btn-category" onclick="selectCategory('acao')"> Ação</button>
+               <button class="btn-category" onclick="selectCategory('animacao')"> Animação</button>
+               <button class="btn-category" onclick="selectCategory('fantasia')"> Fantasia</button>
+               <button class="btn-category" onclick="selectCategory('ficcao')"> Ficção Científica</button>
+               <button class="btn-category" onclick="selectCategory('romance')"> Romance</button>
+               <button class="btn-category" onclick="selectCategory('terror')"> Suspense</button>
+           </div>
+       </div>
+
 
 <div class="container">
     <div id="step0"></div>
