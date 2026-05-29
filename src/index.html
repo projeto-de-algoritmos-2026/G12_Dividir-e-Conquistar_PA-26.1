@@ -259,6 +259,234 @@
    </div>
 
 </div>
+<script>
+    const categoriesDb = {
+        acao: [
+            { id: 1, title: "Mad Max: Estrada da Fúria" },
+            { id: 2, title: "Gladiador" },
+            { id: 3, title: "John Wick" },
+            { id: 4, title: "Missão Impossível: Efeito Fallout" },
+            { id: 5, title: "Indiana Jones" },
+            { id: 6, title: "Velozes e Furiosos" },
+            { id: 7, title: "Até o Último Homem" }
+        ],
+        fantasia: [
+            { id: 1, title: "O Senhor dos Anéis" },
+            { id: 2, title: "Harry Potter" },
+            { id: 3, title: "As Crônicas de Nárnia" },
+            { id: 4, title: "O Labirinto do Fauno" },
+            { id: 5, title: "Piratas do Caribe" },
+            { id: 6, title: "O Hobbit: Uma Jornada Inesperada" },
+            { id: 7, title: "Alice no País das Maravilhas" }
+        ],
+        ficcao: [
+            { id: 1, title: "Matrix" },
+            { id: 2, title: "A Origem" },
+            { id: 3, title: "Interestelar" },
+            { id: 4, title: "Lucy" },
+            { id: 5, title: "Star Wars" },
+            { id: 6, title: "De Volta para o Futuro" },
+            { id: 7, title: "Interestelar" }
+        ],
+        romance: [
+            { id: 1, title: "Titanic" },
+            { id: 2, title: "Como Eu Era Antes de Você" },
+            { id: 3, title: "A Culpa é das Estrelas" },
+            { id: 4, title: "Uma Linda Mulher" },
+            { id: 5, title: "Meu Primeiro Verão" },
+            { id: 6, title: "Questão de Tempo" },
+            { id: 7, title: "La La Land: Cantando Estações" }
+        ],
+        animacao: [
+            { id: 1, title: "Shrek" },
+            { id: 2, title: "Homem-Aranha no Aranhaverso" },
+            { id: 3, title: "Detona Ralph" },
+            { id: 4, title: "Guerreiras do K-Pop" },
+            { id: 5, title: "O Castelo Animado" },
+            { id: 6, title: "Carros" },
+            { id: 7, title: "Spirit - O Corcel Indomável" }
+        ],
+        terror: [
+            { id: 1, title: "A Hora do Mal" },
+            { id: 2, title: "Ilha do Medo" },
+            { id: 3, title: "Sexto Sentido" },
+            { id: 4, title: "O Homem Invisível" },
+            { id: 5, title: "A Hora do Pesadelo" },
+            { id: 6, title: "Alien, o 8º Passageiro" },
+            { id: 7, title: "Um Lugar Silencioso" }
+        ]
+    };
+    let selectedGenre = "";
+    let player1Name = "";
+    let player2Name = "";
+    let player1Ranking = [];
+    let player2Ranking = [];
+    let currentLiveMovies = [];
+    function selectCategory(genre) {
+        selectedGenre = genre;
 
+        currentLiveMovies = JSON.parse(JSON.stringify(categoriesDb[genre]));
+        currentLiveMovies.sort(() => Math.random() - 0.5);
+        currentLiveMovies.forEach((movie, index) => { movie.currentRank = index + 1;});
+
+        document.getElementById('step0').classList.remove('active');
+        document.getElementById('step1').classList.add('active');
+
+        renderList('list1');
+    }
+    function renderList(targetId) {
+        const container = document.getElementById(targetId);
+        container.innerHTML = '';
+
+        currentLiveMovies.sort((a, b) => a.currentRank - b.currentRank);
+        currentLiveMovies.forEach(movie => {
+            const div = document.createElement('div');
+            div.className = 'movie-item';
+            div.dataset.id = movie.id;
+            div.innerHTML = `
+            <div class="movie-info">
+            <input type="number" class="rank-input"
+            value="${movie.currentRank}"
+            min="1" max="7"
+            onchange="handleRankChange(this,
+            ${movie.id}, '${targetId}')">
+            <span>${movie.title}</span>
+            </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+    function handleRankChange(inputElement, movieId, targetId) {
+        let newValue = parseInt(inputElement.value);
+        const maxVal = 7;
+        if (isNaN(newValue) || newValue < 1) newValue = 1;
+        if (newValue > maxVal) newValue = maxVal;
+
+        const targetMovie = currentLiveMovies.find(m => m.id === movieId);
+        const oldValue = targetMovie.currentRank;
+        targetMovie.currentRank = newValue;
+
+        currentLiveMovies.forEach(movie => {
+            if (movie.id !== movieId) {
+                if (oldValue < newValue) {
+                    if (movie.currentRank > oldValue && movie.currentRank <= newValue) {
+                        movie.currentRank--;
+                    }
+                } else {
+                    if (movie.currentRank >= newValue && movie.currentRank < oldValue) {
+                        movie.currentRank++;
+                    }
+                }
+            }
+        });
+
+        currentLiveMovies.sort((a, b) => a.currentRank - b.currentRank);
+        currentLiveMovies.forEach((movie, index) => { movie.currentRank = index + 1;});
+
+        renderList(targetId);
+    }
+
+    function submitPlayer1() {
+        player1Name = document.getElementById('name1').value.trim() || "Jogador 1";
+
+        currentLiveMovies.sort((a, b) => a.currentRank - b.currentRank);
+        player1Ranking = currentLiveMovies.map(m => m.id);
+
+        currentLiveMovies.sort(() => Math.random() - 0.5);
+        currentLiveMovies.forEach((movie, index) => { movie.currentRank = index + 1;});
+
+        document.getElementById('step1').classList.remove('active');
+        document.getElementById('step2').classList.add('active');
+
+        renderList('list2');
+    }
+
+    function submitPlayer2() {
+        player2Name = document.getElementById('name2').value.trim() || "Jogador 2";
+        currentLiveMovies.sort((a, b) => a.currentRank - b.currentRank);
+        player2Ranking = currentLiveMovies.map(m => m.id);
+
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step3').classList.add('active');
+
+        processAlgos();
+    }
+
+    function processAlgos() {
+        const n = 7;
+        const maxInversions = (n * (n - 1)) / 2; 
+        const player1Positions = {};
+        
+        player1Ranking.forEach((movieId, index) => { player1Positions[movieId] = index + 1});
+
+        const mappedArrayForInversion = player2Ranking.map(movieId => player1Positions[movieId]);
+
+        const inversionsFound = countInversions([...mappedArrayForInversion]);
+        const affinity = ((1 - (inversionsFound / maxInversions)) * 100).toFixed(0);
+
+        const genreNames = { acao: "Ação", fantasia: "Fantasia", ficcao: "Ficção Científica", romance: "Romance", animacao: "Animação",
+        terror: "Suspense" };
+        document.getElementById('category-badge').innerText = `Gênero: ${genreNames[selectedGenre]}`;
+        document.getElementById('names-headline').innerText = `${player1Name} ➕ ${player2Name}`;
+        document.getElementById('score-display').innerText =  `${affinity}%`;
+        document.getElementById('inv-count').innerText = inversionsFound;
+
+        let verdict = "";
+
+        if(affinity == 100) verdict = "Almas gêmeas! Gostos idênticos nesta categoria!";
+        else if(affinity >= 75) verdict = "Ótimos parceiros de sessão. Vão concordar facilmente.";
+        else if(affinity >= 40) verdict = "Meio termo. Vão gastar um tempo debatendo o que assistir.";
+        else if(affinity >= 10) verdict = "Alerta de discussão! Gostos bem conflitantes.";
+        else verdict = "Opostos Absolutos! O que um gosta, o outro detesta.";
+
+        document.getElementById('verdict-display').innerText =verdict;
+    }
+
+    function countInversions(arr) {
+        let temp = new Array(arr.length);
+        return mergeSortAndCount(arr, temp, 0, arr.length - 1);
+    }
+
+    function mergeSortAndCount(arr, temp, left, right) {
+        let count = 0;
+        if (left < right) {
+            const mid = Math.floor((left + right) / 2);
+            count += mergeSortAndCount(arr, temp, left, mid);
+            count += mergeSortAndCount(arr, temp, mid + 1, right);
+            count += mergeAndCount(arr, temp, left, mid, right);
+        }
+        return count;
+    }
+
+    function mergeAndCount(arr, temp, left, mid, right) {
+        let i = left, j = mid + 1, k = left;
+        let inversions = 0;
+        while (i <= mid && j <= right) {
+            if (arr[i] <= arr[j]) {
+                temp[k++] = arr[i++];
+            } else {
+                temp[k++] = arr[j++];
+                inversions += (mid - i + 1);
+            }
+        }
+
+        while (i <= mid) temp[k++] = arr[i++];
+        while (j <= right) temp[k++] = arr[j++];
+
+        for (i = left; i <= right; i++) arr[i] = temp[i];
+            return inversions;
+    }
+
+    function restartGame() {
+
+        document.getElementById('step3').classList.remove('active');
+        document.getElementById('step0').classList.add('active');
+        document.getElementById('name1').value = "Jogador 1";
+        document.getElementById('name2').value = "Jogador 2";
+        selectedGenre = "";
+        player1Ranking = [];
+        player2Ranking = [];
+    }
+</script>
 </body>
 </html>
