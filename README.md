@@ -126,4 +126,4 @@ Ao final da partida, o sistema exibe:
 
 ## Gravação 
 
-A gravação pode ser acessada através do link []().
+A gravação pode ser acessada através do link [https://youtu.be/KUSByzOK0a8](https://youtu.be/KUSByzOK0a8).
